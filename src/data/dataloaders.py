@@ -41,7 +41,6 @@ class GMC_DataLoader(DataLoader):
                 show = True
             elif type == None:
                 show = True
-            print(num)
             if show:
                 num +=1 
                 inputs = inputs[0,:,:,:]
