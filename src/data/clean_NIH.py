@@ -1,5 +1,6 @@
 import csv
 import glob
+import os
 import shutil
 
 if __name__ == '__main__':
@@ -24,15 +25,16 @@ if __name__ == '__main__':
         for row in spamreader:
             filename = ' '.join(row).split(',')[0]
             illness = ' '.join(row).split(',')[1]
-            if illness == 'Pneumonia':
+            if 'Pneumonia' in illness:
                 pneumonia_files.append(filename)
                 if filename in train_val_files:
                     os.replace(all_files[filename], os.path.join(CXR8_path, 'train_val', 'PNEUMONIA', filename))
                 elif filename in test_files:
                     os.replace(all_files[filename], os.path.join(CXR8_path, 'test', 'PNEUMONIA', filename))
-            elif illness == 'No Finding':
+            elif 'No Finding' in illness:
                 normal_files.append(filename)
                 if filename in train_val_files:
                     os.replace(all_files[filename], os.path.join(CXR8_path, 'train_val', 'NORMAL', filename))
                 elif filename in test_files:
                     os.replace(all_files[filename], os.path.join(CXR8_path,  'test', 'NORMAL',filename))
+
