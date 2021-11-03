@@ -27,7 +27,7 @@ class SuperDataLoader(DataLoader):
                 inputs = inputs.permute(1, 2, 0)
                 plt.figure()
                 plt.imshow(inputs.numpy())
-                plt.title(labels[0])
+                plt.title('Pneumonia' if labels[0] else 'Normal')
                 plt.show()
 
 
@@ -36,16 +36,16 @@ class ENV_DataLoader(SuperDataLoader):
         self.stage = stage
 
         if stage == 'train' and type == 1:
-            image_list_file = './data/external/ENV/output_1_train.txt'
+            image_list_file = './data/labels/ENV/output_1_train.txt'
         elif stage == 'train' and type == 2:
-            image_list_file = './data/external/ENV/output_2_train.txt'
+            image_list_file = './data/labels/ENV/output_2_train.txt'
         elif stage == 'test':
-            image_list_file = './data/external/ENV/output_0_test.txt'
+            image_list_file = './data/labels/ENV/output_0_test.txt'
         else:
             print('Error')
 
 
-        self.dataset = ENV_Dataset(data_dir=f'./data/raw/'.format(stage = stage),
+        self.dataset = ENV_Dataset(data_dir=f'./data/images/'.format(stage = stage),
                                     image_list_file=image_list_file,
                                     stage = self.stage,
                                     transform=transforms.Compose([
@@ -64,8 +64,8 @@ class ENV_DataLoader(SuperDataLoader):
 class GMC_DataLoader(SuperDataLoader):
     def __init__(self, stage = "train", *args, **kwargs):
         self.stage = stage
-        self.dataset = GMC_Dataset(data_dir=f'./data/raw/GMC/{stage}/'.format(stage = stage),
-                                    image_list_file=f'./data/external/GMC/output_{stage}.txt'.format(stage=stage),
+        self.dataset = GMC_Dataset(data_dir=f'./data/images/GMC/{stage}/'.format(stage = stage),
+                                    image_list_file=f'./data/labels/GMC/output_{stage}.txt'.format(stage=stage),
                                     transform=transforms.Compose([
                                         transforms.Resize(256),
                                         transforms.CenterCrop(224), #crop each img to the same size for batch
@@ -81,8 +81,8 @@ class GMC_DataLoader(SuperDataLoader):
 class NIH_DataLoader(SuperDataLoader):
     def __init__(self, stage = "train", *args, **kwargs):
         self.stage = stage
-        self.dataset = GMC_Dataset(data_dir=f'./data/raw/NIH/{stage}/'.format(stage = stage),
-                                    image_list_file=f'./data/external/NIH/output_{stage}.txt'.format(stage=stage),
+        self.dataset = GMC_Dataset(data_dir=f'./data/images/NIH/{stage}/'.format(stage = stage),
+                                    image_list_file=f'./data/labels/NIH/output_{stage}.txt'.format(stage=stage),
                                     transform=transforms.Compose([
                                         transforms.Resize(256),
                                         transforms.CenterCrop(224), #crop each img to the same size for batch
