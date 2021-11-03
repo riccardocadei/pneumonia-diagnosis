@@ -10,7 +10,6 @@ data/raw/
 
 # Distribution / packaging
 .Python
-env/
 build/
 develop-eggs/
 dist/
