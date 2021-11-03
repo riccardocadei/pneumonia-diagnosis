@@ -15,7 +15,7 @@ class Super_Dataset(Dataset):
         image_name = self.image_names[index]
         label = self.labels[index]
 
-        image = Image.open(image_name).convert('L')
+        image = Image.open(image_name).convert('RGB')
         if self.transform is not None:
             image = self.transform(image)
         return image, torch.FloatTensor(label)

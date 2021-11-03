@@ -52,8 +52,8 @@ class ENV_DataLoader(SuperDataLoader):
                                         transforms.Resize(256),
                                         transforms.CenterCrop(224), #crop each img to the same size for batch
                                         transforms.ToTensor(), 
-                                        transforms.Normalize([0.5832],
-                                [0.1412]),
+                                        transforms.Normalize([0.5832,0.5832,0.5832],
+                                [0.1412,0.1412,0.1412]),
                                         #transforms.TenCrop(224), #for data augmentation crop one img into 10 imgs
                                         #transforms.Lambda(lambda crops: torch.stack([transforms.ToTensor()(crop) for crop in crops])),
                                         #transforms.Lambda(lambda crops: torch.stack([normalize(crop) for crop in crops]))
@@ -87,8 +87,8 @@ class NIH_DataLoader(SuperDataLoader):
                                         transforms.Resize(256),
                                         transforms.CenterCrop(224), #crop each img to the same size for batch
                                         transforms.ToTensor(),
-                                        transforms.Normalize([0.5362],
-                                [0.2001]),
+                                        transforms.Normalize([0.5362,0.5362,0.5362],
+                                [0.2001,0.2001,0.2001]),
                                         #transforms.TenCrop(224), #for data augmentation crop one img into 10 imgs
                                         #transforms.Lambda(lambda crops: torch.stack([transforms.ToTensor()(crop) for crop in crops])),
                                         #transforms.Lambda(lambda crops: torch.stack([normalize(crop) for crop in crops]))
