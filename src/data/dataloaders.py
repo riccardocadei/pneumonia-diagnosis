@@ -34,6 +34,7 @@ class SuperDataLoader(DataLoader):
 class ENV_DataLoader(SuperDataLoader):
     def __init__(self, stage = "train", type = 0, *args, **kwargs):
         self.stage = stage
+        image_list_file = ""
 
         if stage == 'train' and type == 1:
             image_list_file = './data/labels/ENV/output_1_train.txt'
@@ -43,6 +44,7 @@ class ENV_DataLoader(SuperDataLoader):
             image_list_file = './data/labels/ENV/output_0_test.txt'
         else:
             print('Error')
+
 
 
         self.dataset = ENV_Dataset(data_dir=f'./data/images/'.format(stage = stage),
