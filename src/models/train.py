@@ -1,5 +1,8 @@
 from torch import optim
 import torch
+import time
+from time import sleep
+from tqdm import tqdm
 
 from src.visualization.visualize import  plot_train_val
 
@@ -15,14 +18,18 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, n_epochs
     val_ers = []
 
     min_val_er =1e10
+    pbar = tqdm(total=n_epochs*n_batches)
+
 
     for n_epoch in range(n_epochs):
         print(f'Epoch: {n_epoch}/{n_epochs}')
         train_loaders_iter = [iter(train_loader) for train_loader in train_loaders]
         train_er = 0
         model.train()
-        for _ in range(n_batches):
+        for i in tqdm(range(n_batches)):
             loss = torch.zeros(1).to(device)
+            pbar.update(1)
+
             for train_loader_iter in train_loaders_iter:
                 try:
                     (X,y) = next(train_loader_iter)
@@ -35,7 +42,7 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, n_epochs
                 y_pred = model(X)
 
                 # Empirical Risk
-                bce = criterion(y_pred*scale, y)
+                bce = criterion(torch.squeeze(y_pred)*scale, torch.squeeze(y))
                 loss += bce
                 train_er += bce.item() * X.size(0)
                 # Invariance Constraint (TO IMPLEMENT UNBIASED ESTIMATOR)
@@ -47,6 +54,7 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, n_epochs
             optimizer.step()
 
         train_ers.append(train_er/n_train)
+        print(n_epoch, train_er/n_train)
         val_er = validate(model, val_loaders, criterion, device)
         if val_er < min_val_er:
             min_val_er = val_er
