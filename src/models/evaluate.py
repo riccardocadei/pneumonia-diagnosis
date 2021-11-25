@@ -1,5 +1,6 @@
 import torch
 from tqdm.notebook import tqdm
+import numpy as np
 
 
 def test(model, data_loader, name_model, device):
@@ -15,7 +16,7 @@ def test(model, data_loader, name_model, device):
             images = images.to(device)
             labels = labels.to(device)
             outputs = model(images)
-            _, predicted = torch.max(outputs.data, 1)
+            predicted = np.around(outputs)
             predicted, labels = predicted.flatten(), labels.flatten()
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
