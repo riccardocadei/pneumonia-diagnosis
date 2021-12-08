@@ -14,9 +14,9 @@ def test(model, data_loader, name_model, device):
         total = 0
         for images, labels in tqdm(data_loader):
             images = images.to(device)
-            labels = labels.to(device)
+            labels = labels.to(device).cpu()
             outputs = model(images)
-            predicted = np.around(outputs)
+            predicted = np.around(outputs.cpu())
             predicted, labels = predicted.flatten(), labels.flatten()
             total += labels.size(0)
             correct += (predicted == labels).sum().item()

@@ -8,7 +8,8 @@ from src.visualization.visualize import  plot_train_val
 
 def train(model, train_loaders, val_loaders, optimizer, criterion, irm, n_epochs, device, plot=True):
 
-    name_model = f'{model.name}_irm_{irm}_ep_{n_epochs}'
+    start = 0
+    name_model = f'{model.name}_irm_{irm}_ep_{n_epochs+start}'
 
     n_batches = min([len(train_loader) for train_loader in train_loaders])
     n_train = sum([len(train_loader.sampler) for train_loader in train_loaders])
@@ -21,7 +22,7 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, n_epochs
     pbar = tqdm(total=n_epochs*n_batches)
 
 
-    for n_epoch in range(n_epochs):
+    for n_epoch in range(start,start+n_epochs):
         #print(f'Epoch: {n_epoch}/{n_epochs}')
         train_loaders_iter = [iter(train_loader) for train_loader in train_loaders]
         train_er = 0
