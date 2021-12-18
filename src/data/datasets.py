@@ -74,15 +74,15 @@ class GMC_Dataset(Super_Dataset):
                 with corresponding labels.
             transform: optional transform to be applied on a sample.
         """
-        with open(image_list_file, "w+") as a:
-            for path, _, files in os.walk(data_dir):
-                for filename in files:
-                    if "DS_Store" not in filename:
-                        if 'PNEUMONIA' in path:
-                            label = '1'
-                        else:
-                            label = '0'
-                        a.write(str(filename)+' '+label+os.linesep)
+        # with open(image_list_file, "w+") as a:
+        #     for path, _, files in os.walk(data_dir):
+        #         for filename in files:
+        #             if "DS_Store" not in filename:
+        #                 if 'PNEUMONIA' in path:
+        #                     label = '1'
+        #                 else:
+        #                     label = '0'
+        #                 a.write(str(filename)+' '+label+os.linesep)
 
 
         image_names = []

@@ -6,11 +6,12 @@ from tqdm.auto import tqdm
 
 from src.visualization.visualize import  plot_train_val
 
-def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex, n_epochs=20, device='cpu', plot=True):
+def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex = 0, n_epochs=20, device='cpu', plot=True, exp2 = False):
 
     start = 0
     name_model = f'{model.name}_irm_{irm}_ep_{n_epochs+start}'
-
+    if vrex:
+        name_model += f'_vrex_{vrex}'
     n_batches = min([len(train_loader) for train_loader in train_loaders])
     n_train = sum([len(train_loader.sampler) for train_loader in train_loaders])
     n_val = sum([len(val_loader.sampler) for val_loader in val_loaders])
@@ -38,6 +39,10 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex, n_
                     raise RuntimeError()
                 X.to(device)
                 y.to(device)
+
+                if exp2:
+                    y = y[:2]
+
                 scale = torch.tensor(1.).requires_grad_()
                 optimizer.zero_grad()
                 y_pred = model(X)
@@ -65,12 +70,9 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex, n_
             loss_tot.backward()
             optimizer.step()
 
-        train_ers.append(train_er/n_train)
-        print(n_epoch, train_ers[-1])
         val_er = validate(model, val_loaders, criterion, device)
         if val_er < min_val_er:
             min_val_er = val_er
-            print("val er: ", val_er)
             torch.save(model.state_dict(), f"./models/{name_model}.pth")
         val_ers.append(val_er/n_val)
 
