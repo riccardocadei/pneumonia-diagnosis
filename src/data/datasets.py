@@ -24,7 +24,7 @@ class Super_Dataset(Dataset):
         return len(self.image_names)
 
 class ENV_Dataset(Super_Dataset):
-    def __init__(self, data_dir, stage, image_list_file, transform=None):
+    def __init__(self, data_dir, stage, image_list_file, transform=None, limit = None):
         """
         Args:
             data_dir: path to image directory.
@@ -37,7 +37,10 @@ class ENV_Dataset(Super_Dataset):
         labels = []
         datasets = []
         with open(image_list_file, "r") as f:
-            for line in f:
+            for num, line in enumerate(f):
+                if limit:
+                    if num >= limit:
+                        break
                 items = line.split()
                 dataset = items[0]
                 image_name= items[1]
@@ -66,7 +69,7 @@ class ENV_Dataset(Super_Dataset):
 
 
 class GMC_Dataset(Super_Dataset):
-    def __init__(self, data_dir, image_list_file, transform=None):
+    def __init__(self, data_dir, image_list_file, transform=None, limit = None):
         """
         Args:
             data_dir: path to image directory.
@@ -88,7 +91,10 @@ class GMC_Dataset(Super_Dataset):
         image_names = []
         labels = []
         with open(image_list_file, "r") as f:
-            for line in f:
+            for num, line in enumerate(f):
+                if limit:
+                    if num >= limit:
+                        break
                 items = line.split()
                 image_name= items[0]
                 label = items[1]

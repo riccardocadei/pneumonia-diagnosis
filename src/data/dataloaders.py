@@ -32,7 +32,7 @@ class SuperDataLoader(DataLoader):
 
 
 class ENV_DataLoader(SuperDataLoader):
-    def __init__(self, stage = "train", type = 0, *args, **kwargs):
+    def __init__(self, stage = "train", type = 0, limit = None, *args, **kwargs):
         self.stage = stage
         image_list_file = ""
 
@@ -59,12 +59,12 @@ class ENV_DataLoader(SuperDataLoader):
                                         #transforms.TenCrop(224), #for data augmentation crop one img into 10 imgs
                                         #transforms.Lambda(lambda crops: torch.stack([transforms.ToTensor()(crop) for crop in crops])),
                                         #transforms.Lambda(lambda crops: torch.stack([normalize(crop) for crop in crops]))
-                                    ]))
+                                    ]), limit = limit)
         super().__init__(dataset = self.dataset, *args, **kwargs)
 
 
 class GMC_DataLoader(SuperDataLoader):
-    def __init__(self, stage = "train", *args, **kwargs):
+    def __init__(self, stage = "train", limit = None, *args, **kwargs):
         self.stage = stage
         self.dataset = GMC_Dataset(data_dir=f'./data/images/GMC/{stage}/'.format(stage = stage),
                                     image_list_file=f'./data/labels/GMC/output_{stage}.txt'.format(stage=stage),
@@ -77,11 +77,11 @@ class GMC_DataLoader(SuperDataLoader):
                                         #transforms.TenCrop(224), #for data augmentation crop one img into 10 imgs
                                         #transforms.Lambda(lambda crops: torch.stack([transforms.ToTensor()(crop) for crop in crops])),
                                         #transforms.Lambda(lambda crops: torch.stack([normalize(crop) for crop in crops]))
-                                    ]))
+                                    ]), limit = limit)
         super().__init__(dataset = self.dataset, *args, **kwargs)
 
 class NIH_DataLoader(SuperDataLoader):
-    def __init__(self, stage = "train", *args, **kwargs):
+    def __init__(self, stage = "train", limit = None, *args, **kwargs):
         self.stage = stage
         self.dataset = GMC_Dataset(data_dir=f'./data/images/NIH/{stage}/'.format(stage = stage),
                                     image_list_file=f'./data/labels/NIH/output_{stage}.txt'.format(stage=stage),
@@ -94,5 +94,5 @@ class NIH_DataLoader(SuperDataLoader):
                                         #transforms.TenCrop(224), #for data augmentation crop one img into 10 imgs
                                         #transforms.Lambda(lambda crops: torch.stack([transforms.ToTensor()(crop) for crop in crops])),
                                         #transforms.Lambda(lambda crops: torch.stack([normalize(crop) for crop in crops]))
-                                    ]))
+                                    ]), limit = limit)
         super().__init__(dataset = self.dataset, *args, **kwargs)

@@ -70,7 +70,7 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex = 0
             loss_tot.backward()
             optimizer.step()
 
-        val_er = validate(model, val_loaders, criterion, device)
+        val_er = validate(model, val_loaders, criterion, device, exp2 = True)
         if val_er < min_val_er:
             min_val_er = val_er
             torch.save(model.state_dict(), f"./models/{name_model}.pth")
@@ -80,7 +80,7 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex = 0
 
     return 
 
-def validate(model, val_loaders, criterion, device):
+def validate(model, val_loaders, criterion, device, exp2 = False):
     model.eval()
     val_er = 0.0
     for val_loader in val_loaders:
@@ -88,6 +88,9 @@ def validate(model, val_loaders, criterion, device):
             X.to(device)
             y.to(device)
             
+            if exp2:
+                y = y[:2]
+
             y_pred = model(X)
             loss = criterion(y_pred, y)
             val_er += loss.item() * X.size(0)
