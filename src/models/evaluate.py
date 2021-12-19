@@ -3,7 +3,7 @@ from tqdm.notebook import tqdm
 import numpy as np
 
 
-def test(model, data_loader, name_model, device):
+def test(model, data_loader, name_model, device, exp2 = False):
     # load the model
     model.to(device)
     model.load_state_dict(torch.load(f"./models/{name_model}.pth"))
@@ -16,6 +16,8 @@ def test(model, data_loader, name_model, device):
             images = images.to(device)
             labels = labels.to(device).cpu()
             outputs = model(images)
+            if exp2:
+                labels = labels[:1]
             predicted = np.around(outputs.cpu())
             predicted, labels = predicted.flatten(), labels.flatten()
             total += labels.size(0)

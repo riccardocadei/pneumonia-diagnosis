@@ -13,7 +13,7 @@ class SuperModel(torch.nn.Module):
         self.image_encoder = get_resnet(50, 2, 0.0625)
         self.image_encoder.load_state_dict(torch.load("models/r50_2x_sk1.pth")['resnet'])
         self.style_encoder =  ConvEncoder()
-        self.linear1 = torch.nn.Linear(4096+512, 2048)
+        self.linear1 = torch.nn.Linear(4096+1024, 2048)
         self.linear2 = torch.nn.Linear(2048,512)
         self.linear3 = torch.nn.Linear(512,128)
         self.linear4 = torch.nn.Linear(128,32)
@@ -28,14 +28,17 @@ class SuperModel(torch.nn.Module):
         well as arbitrary operators on Tensors.
         """
 
-        x_ray = x[:2]
-        style_batch = x[:-2]
+        x_ray = x[:1]
+        style_batch = x[-4:]
 
-        x_latent = self.image_encoder(x_ray)
+        self.image_encoder.eval()
+        with torch.no_grad():
+            x_latent = self.image_encoder(x_ray)
+        self.image_encoder.train()
+
         style_batch_latent =  torch.unsqueeze(self.style_encoder(style_batch),0)
 
         X = torch.cat((x_latent[0,None],style_batch_latent),1)
-        X = torch.cat((X,torch.cat((x_latent[1,None],style_batch_latent),1)),0)
 
         y_pred = self.linear1(X)
         y_pred = self.linear2(y_pred)
