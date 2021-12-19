@@ -16,8 +16,6 @@ def test(model, data_loader, name_model, device, exp2 = False):
             images = images.to(device)
             labels = labels.to(device).cpu()
             outputs = model(images)
-            if exp2:
-                labels = labels[:1]
             predicted = np.around(outputs.cpu())
             predicted, labels = predicted.flatten(), labels.flatten()
             total += labels.size(0)

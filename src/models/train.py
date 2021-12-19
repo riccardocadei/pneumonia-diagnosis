@@ -40,9 +40,6 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex = 0
                 X.to(device)
                 y.to(device)
 
-                if exp2:
-                    y = y[:1]
-
                 scale = torch.tensor(1.).requires_grad_()
                 optimizer.zero_grad()
                 y_pred = model(X)
@@ -87,9 +84,6 @@ def validate(model, val_loaders, criterion, device, exp2 = False):
         for (X,y) in val_loader:
             X.to(device)
             y.to(device)
-            
-            if exp2:
-                y = y[:1]
 
             y_pred = model(X)
             loss = criterion(y_pred, y)
