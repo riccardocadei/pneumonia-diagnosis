@@ -1,7 +1,6 @@
 import torch
 from src.models.resnet import get_resnet
 from src.models.style_encoder import ConvEncoder
-from torch.nn import ReLU as ReLU
 
 
 class SuperModel(torch.nn.Module):
@@ -18,6 +17,7 @@ class SuperModel(torch.nn.Module):
         self.linear3 = torch.nn.Linear(512,64)
         self.linear5 = torch.nn.Linear(64,1)
         self.softmax = torch.nn.Sigmoid()
+        self.relu = torch.nn.ReLU()
         self.name = "supermodel"
 
     def forward(self, x):
@@ -48,9 +48,9 @@ class SuperModel(torch.nn.Module):
         # style_batch_latent =  torch.unsqueeze(self.style_encoder(style_batch),0)
 
 
-        y_pred = self.linear1(ReLU(X))
-        y_pred = self.linear3(ReLU(y_pred))
-        y_pred = self.linear5(ReLU(y_pred))
+        y_pred = self.linear1(self.relu(X))
+        y_pred = self.linear3(self.relu(y_pred))
+        y_pred = self.linear5(self.relu(y_pred))
         y_pred = self.softmax(y_pred)
 
         return y_pred
