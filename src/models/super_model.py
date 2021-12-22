@@ -1,7 +1,7 @@
 import torch
 from src.models.resnet import get_resnet
 from src.models.style_encoder import ConvEncoder
-from torch.nn import functional as F
+from torch.nn import ReLU as ReLU
 
 
 class SuperModel(torch.nn.Module):
@@ -48,9 +48,9 @@ class SuperModel(torch.nn.Module):
         # style_batch_latent =  torch.unsqueeze(self.style_encoder(style_batch),0)
 
 
-        y_pred = self.linear1(F.Relu(X))
-        y_pred = self.linear3(F.Relu(y_pred))
-        y_pred = self.linear5(F.Relu(y_pred))
+        y_pred = self.linear1(ReLU(X))
+        y_pred = self.linear3(ReLU(y_pred))
+        y_pred = self.linear5(ReLU(y_pred))
         y_pred = self.softmax(y_pred)
 
         return y_pred
