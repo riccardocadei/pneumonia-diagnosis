@@ -1,7 +1,7 @@
 import torch
 from src.models.resnet import get_resnet
 from src.models.style_encoder import ConvEncoder
-import torch.nn.functional as F
+from torch.nn import functional as F
 
 
 class SuperModel(torch.nn.Module):
