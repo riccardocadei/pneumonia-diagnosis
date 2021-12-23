@@ -64,10 +64,15 @@ class ENV_DataLoader(SuperDataLoader):
 
 
 class GMC_DataLoader(SuperDataLoader):
-    def __init__(self, stage = "train", limit = None, *args, **kwargs):
+    def __init__(self, stage = "train", limit = None, balanced = False, *args, **kwargs):
         self.stage = stage
+        if balanced:
+            self.list_file = f'./data/labels/GMC/balanced_output_{stage}.txt'.format(stage=stage)
+        else:
+            self.list_file = f'./data/labels/GMC/output_{stage}.txt'.format(stage=stage)
+
         self.dataset = GMC_Dataset(data_dir=f'./data/images/GMC/{stage}/'.format(stage = stage),
-                                    image_list_file=f'./data/labels/GMC/output_{stage}.txt'.format(stage=stage),
+                                    image_list_file=self.list_file,
                                     transform=transforms.Compose([
                                         transforms.Resize(256),
                                         transforms.CenterCrop(224), #crop each img to the same size for batch
@@ -81,10 +86,15 @@ class GMC_DataLoader(SuperDataLoader):
         super().__init__(dataset = self.dataset, *args, **kwargs)
 
 class NIH_DataLoader(SuperDataLoader):
-    def __init__(self, stage = "train", limit = None, *args, **kwargs):
+    def __init__(self, stage = "train", limit = None, balanced = False, *args, **kwargs):
         self.stage = stage
+        if balanced:
+            self.list_file = f'./data/labels/NIH/balanced_output_{stage}.txt'.format(stage=stage)
+        else:
+            self.list_file = f'./data/labels/NIH/output_{stage}.txt'.format(stage=stage)
+
         self.dataset = GMC_Dataset(data_dir=f'./data/images/NIH/{stage}/'.format(stage = stage),
-                                    image_list_file=f'./data/labels/NIH/output_{stage}.txt'.format(stage=stage),
+                                    image_list_file=self.list_file,
                                     transform=transforms.Compose([
                                         transforms.Resize(256),
                                         transforms.CenterCrop(224), #crop each img to the same size for batch
