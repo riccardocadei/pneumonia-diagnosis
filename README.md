@@ -1,9 +1,16 @@
-Pneumonia Diagnosis
-==============================
+# Towards Robust and Adaptable Diagnosis of Pneumonia from Chest X-ray Data
 
-Chest radiography is a cost effective and powerful investigator method that conveys crucial respiratory information. Rapid  and accurate diagnosis is specifically required in most cases, as shown by Covid-19. In this study, we propose a self-supervised learning at test time approach for a robust and adaptable diagnosis of pneumonia on chest X-rays data. 
+### Abstract
 
-Project Organization
+Chest radiography is a cost effective and powerful investigator method that conveys crucial respiratory information for pneumonia detection. Artificial intelligence (AI) researchers and radiologists have recently reported AI systems that accurately diagnose pneumonia from a chest X-Ray images using deep neural networks when trained on a sufficient large and homogeneous amount of labelled images. However, the robustness and adaptability of these systems, trained minimizing the empirical risk (ERM), remains far way. In fact, ERM have no way of discard environment specific spurious features and take into account confounders, creating an alarming situation in which the systems appear accurate, but fail when tested in new hospitals. We propose here 2 ideas to address this challenge towards a robust and adaptable diagnosis of pneumonia: (i) discard the spurious feature replacing ERM with a robust training routine (i.e. IRM and v-REx); (ii) replace the straight-forward deep neural networks with a new modular architecture, encoding separately the invariant features (in a self-supervised fashion) and the style confounders. Then we validate the impact of each contribution, one at the time, by 2 experiments on real-word data.
+
+
+### Team
+The project is accomplished by:
+- Riccardo Cadei: [@riccardocadei](https://github.com/riccardocadei)
+- Raphael Attias: [@raphaelattias](https://github.com/raphaelattias)
+
+### Project Organization
 ------------
 
     ├── LICENSE
