@@ -3,7 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class Baseline(nn.Module):
+    """Baseline model reproduced from arXiv:2007.10653 and indentend to compare in the first experiment 
+    to SOTA model in robustness evaluation.
 
+    """
     def __init__(self):
         super(Baseline, self).__init__()
         self.conv1 = nn.Conv2d(3,64,3, padding=1)

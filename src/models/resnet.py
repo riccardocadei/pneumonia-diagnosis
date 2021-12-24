@@ -1,3 +1,5 @@
+# SimCLR model from official github repository: https://github.com/tonylins/simclr-converter
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

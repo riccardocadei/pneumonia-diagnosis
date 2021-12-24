@@ -14,11 +14,8 @@ import torchvision
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 
-
-
-
 class DenseNet121(nn.Module):
-    """Model modified.
+    """CheXNet model for pneumonia prediction.
 
     The architecture of our model is the same as standard DenseNet121
     except the classifier layer which has an additional sigmoid function.

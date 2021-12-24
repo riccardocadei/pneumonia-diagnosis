@@ -2,7 +2,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-#Define the Convolutional Encoder
+#Define the Convolutional Style Encoder
 class ConvEncoder(nn.Module):
     def __init__(self):
         super(ConvEncoder, self).__init__()

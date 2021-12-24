@@ -1,19 +1,32 @@
-from torch import optim
 import torch
-import time
-from time import sleep
 from tqdm.auto import tqdm
 
 from src.visualization.visualize import  plot_train_val
 
-def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex = 0, n_epochs=20, device='cpu', plot=True, exp2 = False):
+def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex = 0, n_epochs=20, device='cpu', plot=True):
+    """ Full training pipeline to train a model, evaluate its performance and save the best state.
+
+    Args:
+        model (nn.Module): Model
+        train_loaders (list(DataLoaders)): Train dataloaders
+        val_loaders (list(DataLoaders)): Validation dataloaders, used to save the model
+        optimizer (torch.nn.optimizer): Torch Optimizer
+        criterion (torch.nn.criterion): Torch Loss Criterion
+        irm (float): Lambda parameter for IRM training routine, set to zero it is equivalent to ERM
+        vrex (int, optional): Parameter for VRex training routine. Defaults to 0.
+        n_epochs (int, optional): Number of epochs for training. Defaults to 20.
+        device (str, optional): . Defaults to 'cpu'.
+        plot (bool, optional): Torch device. Defaults to True.
+
+    Raises:
+        RuntimeError: [description]
+    """
 
     start = 0
     name_model = f'{model.name}_irm_{irm}_ep_{n_epochs+start}'
     if vrex:
         name_model += f'_vrex_{vrex}'
     n_batches = min([len(train_loader) for train_loader in train_loaders])
-    n_train = sum([len(train_loader.sampler) for train_loader in train_loaders])
     n_val = sum([len(val_loader.sampler) for val_loader in val_loaders])
 
     train_ers = []
@@ -24,7 +37,6 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex = 0
 
 
     for n_epoch in range(start,start+n_epochs):
-        #print(f'Epoch: {n_epoch}/{n_epochs}')
         train_loaders_iter = [iter(train_loader) for train_loader in train_loaders]
         train_er = 0
         model.train()
@@ -77,7 +89,18 @@ def train(model, train_loaders, val_loaders, optimizer, criterion, irm, vrex = 0
 
     return 
 
-def validate(model, val_loaders, criterion, device, exp2 = False):
+def validate(model, val_loaders, criterion, device):
+    """Validation routine.
+
+    Args:
+        model (nn.Module): Model
+        val_loaders (list(DataLoaders)): Validation dataloaders, used to save the model
+        criterion (torch.nn.criterion): Torch Loss Criterion
+        device (str, optional): . Defaults to 'cpu'.
+
+    Returns:
+        float: validation error
+    """
     model.eval()
     val_er = 0.0
     for val_loader in val_loaders:
