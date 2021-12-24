@@ -23,31 +23,45 @@ The project is accomplished by:
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
+    ├── notebooks          <- Jupyter notebooks with experiments.
+        ├── dataloader.ipynb  <- Notebook showcase the data environments
+        ├── model.ipynb       <- Notebook showcase the models
+        ├── experiment1.ipynb <- First experiment notebook
+        └── experiment2.ipynb <- Second experiment notebook
+
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
     │   └── figures        <- Generated graphics and figures to be used in reporting
     │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+    ├── environment.yml    <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
     │
     └── src                <- Source code for use in this project.
         ├── __init__.py    <- Makes src a Python module
         │
         ├── data           <- Scripts to download or generate data
-        │   └── make_dataset.py
+        │   ├── clean_NIH.py     
+        │   ├── dataloaders.py     
+        │   ├── datasets.py      
+        │   ├── normalize.py  
+        │   ├── readdata.py      
+        │   └── prepare_env.py
         │
         ├── features       <- Scripts to turn raw data into features for modeling
         │   └── build_features.py
         │
         ├── models         <- Scripts to train models and then use trained models to make
         │   │                 predictions
-        │   ├── evaluate.py
-        │   └── train.py
+        │   ├── baseline.py      <- Baseline Model from arXiv:2007.10653
+        │   ├── chexnet.py       <- SOTA model from arXiv:1711.05225v3
+        │   ├── resnet.py        <- SimCLR model from arXiv:2002.05709
+        │   ├── style_encoder.py <- Style encoder for experiment 2
+        │   ├── super_model.py   <- Model predictor for experiment 2
+        │   ├── unet.py          <- Model predictor
+        │   ├── evaluate.py      <- Evaluation routine
+        │   └── train.py         <- Training routine
         │
         └── visualization  <- Scripts to create exploratory and results oriented visualizations
             └── visualize.py
