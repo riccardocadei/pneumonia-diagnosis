@@ -30,8 +30,6 @@ The project is accomplished by:
         └── experiment2.ipynb <- Second experiment notebook
 
     │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
         ├── Final Presentation.pptx 
         ├── Final Presentation.mp4 
