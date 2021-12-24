@@ -24,18 +24,17 @@ The project is accomplished by:
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
     ├── notebooks          <- Jupyter notebooks with experiments.
-        ├── dataloader.ipynb  <- Notebook showcase the data environments
-        ├── model.ipynb       <- Notebook showcase the models
-        ├── experiment1.ipynb <- First experiment notebook
-        └── experiment2.ipynb <- Second experiment notebook
-
+    │   ├── dataloader.ipynb  <- Notebook showcase the data environments
+    │   ├── model.ipynb       <- Notebook showcase the models
+    │   ├── experiment1.ipynb <- First experiment notebook
+    │   └── experiment2.ipynb <- Second experiment notebook
     │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-        ├── Final Presentation.pptx 
-        ├── Final Presentation.mp4 
-        ├── Final Report.pdf       
-        ├── Milestone 1.pdf         
-        ├── Milestone 2.pdf        
+    │   ├── Final Presentation.pptx 
+    │   ├── Final Presentation.mp4 
+    │   ├── Final Report.pdf       
+    │   ├── Milestone 1.pdf         
+    │   ├── Milestone 2.pdf        
     │
     ├── environment.yml    <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
