@@ -33,7 +33,11 @@ The project is accomplished by:
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
+        ├── Final Presentation.pptx 
+        ├── Final Presentation.mp4 
+        ├── Final Report.pdf       
+        ├── Milestone 1.pdf         
+        ├── Milestone 2.pdf        
     │
     ├── environment.yml    <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
